@@ -1,0 +1,95 @@
+# OIDC Build & Deploy to EKS
+name: OIDC Build & Deploy to EKS
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  AWS_REGION: ${{ secrets.AWS_REGION }}
+  ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
+  EKS_CLUSTER_NAME: ${{ secrets.EKS_CLUSTER_NAME }}
+  IMAGE_TAG: ${{ github.sha }}
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up QEMU for multi-arch (optional)
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Assume AWS role via OIDC
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.ROLE_TO_ASSUME }}
+          aws-region: ${{ env.AWS_REGION }}
+          role-session-name: github-actions-oidc
+
+      - name: Log in to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build & push SurveyBot image
+        run: |
+          set -euo pipefail
+          IMAGE="$ECR_REGISTRY/surveybot:${IMAGE_TAG}"
+          docker build -t "$IMAGE" ./bots/SurveyBot
+          docker push "$IMAGE"
+
+      - name: Build & push MetaBot image (if present)
+        if: test -d ./bots/MetaBot
+        run: |
+          set -euo pipefail
+          IMAGE="$ECR_REGISTRY/metabot:${IMAGE_TAG}"
+          docker build -t "$IMAGE" ./bots/MetaBot
+          docker push "$IMAGE"
+
+      - name: Build & push MegaBot image (if present)
+        if: test -d ./bots/MegaBot
+        run: |
+          set -euo pipefail
+          IMAGE="$ECR_REGISTRY/megabot:${IMAGE_TAG}"
+          docker build -t "$IMAGE" ./bots/MegaBot
+          docker push "$IMAGE"
+
+      - name: Update kubeconfig for EKS
+        uses: aws-actions/eks-update-kubeconfig@v2
+        with:
+          cluster-name: ${{ env.EKS_CLUSTER_NAME }}
+          region: ${{ env.AWS_REGION }}
+
+      - name: Replace image placeholders in k8s manifests
+        env:
+          ECR_REGISTRY: ${{ env.ECR_REGISTRY }}
+          IMAGE_TAG: ${{ env.IMAGE_TAG }}
+        run: |
+          set -euo pipefail
+          MANIFEST_DIR=./deployment/k8s
+          if [ -d "$MANIFEST_DIR" ]; then
+            find "$MANIFEST_DIR" -type f \( -name '*.yaml' -o -name '*.yml' \) | while read -r f; do
+              sed -i -e "s|IMAGE_SURVEYBOT|$ECR_REGISTRY/surveybot:${IMAGE_TAG}|g" \
+                     -e "s|IMAGE_METABOT|$ECR_REGISTRY/metabot:${IMAGE_TAG}|g" \
+                     -e "s|IMAGE_MEGABOT|$ECR_REGISTRY/megabot:${IMAGE_TAG}|g" "$f" || true
+            done
+          fi
+
+      - name: Apply k8s manifests to EKS
+        run: |
+          MANIFEST_DIR=./deployment/k8s
+          if [ -d "$MANIFEST_DIR" ]; then
+            kubectl apply -f "$MANIFEST_DIR" --recursive
+          fi
+
+      - name: Optionally restart deployments
+        run: |
+          kubectl rollout restart deployment --namespace default --selector app=surveybot || true
+          kubectl rollout restart deployment --namespace default --selector app=metabot || true
+          kubectl rollout restart deployment --namespace default --selector app=megabot || true
