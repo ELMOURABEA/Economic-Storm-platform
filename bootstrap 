@@ -1,0 +1,107 @@
+resource "random_id" "state_suffix" {
+  byte_length = 2
+}
+
+resource "aws_s3_bucket" "tf_state" {
+  bucket = "${var.project_name}-terraform-state-${random_id.state_suffix.hex}"
+  acl    = "private"
+
+  force_destroy = false
+
+  versioning {
+    enabled = true
+  }
+
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = "AES256"
+      }
+    }
+  }
+
+  lifecycle_rule {
+    id      = "keep-recent"
+    enabled = true
+
+    noncurrent_version_expiration {
+      days = 30
+    }
+  }
+
+  tags = merge(var.tags, {
+    "Name" = "${var.project_name}-tfstate"
+  })
+}
+
+resource "aws_s3_bucket_public_access_block" "tf_state_block" {
+  bucket                  = aws_s3_bucket.tf_state.id
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+
+resource "aws_dynamodb_table" "tf_locks" {
+  name         = "${var.project_name}-terraform-locks-${random_id.state_suffix.hex}"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "LockID"
+
+  attribute {
+    name = "LockID"
+    type = "S"
+  }
+
+  tags = merge(var.tags, {
+    "Name" = "${var.project_name}-tf-locks"
+  })
+}
+
+output "tfstate_s3_bucket" {
+  description = "S3 bucket created for Terraform remote state"
+  value       = aws_s3_bucket.tf_state.id
+}
+
+output "tfstate_dynamodb_table" {
+  description = "DynamoDB table name for Terraform state locking"
+  value       = aws_dynamodb_table.tf_locks.name
+}
+{terraform {
+  backend "s3" {
+    bucket         = "REPLACE_WITH_CREATED_BUCKET_NAME"   # e.g., economic-storm-terraform-state-ab12
+    key            = "dr-bot/terraform.tfstate"           # path within the bucket for the state file
+    region         = "us-east-1"
+    encrypt        = true
+    dynamodb_table = "REPLACE_WITH_CREATED_DDB_TABLE"     # e.g., economic-storm-terraform-locks-ab12
+  }
+}
+{```markdown
+# Terraform Remote State + Locking (Bootstrap)
+
+This document describes how to bootstrap an S3 remote state backend and DynamoDB lock table for the Terraform configuration in this repo.
+
+Bootstrap steps:
+
+1) Apply backend resources locally (temporary local state)
+   - Ensure AWS credentials are configured locally.
+   - Run:
+     terraform init
+     terraform plan -out=plan.tfplan
+     terraform apply "plan.tfplan"
+   - Note outputs:
+     - tfstate_s3_bucket
+     - tfstate_dynamodb_table
+
+2) Configure Terraform to use the S3 backend
+   - Create a local file (do NOT commit) e.g. backend.tf with the configuration in backend-config-example.tf
+   - Replace the placeholders with the real bucket name and DynamoDB table name from step 1.
+
+3) Reinitialize Terraform with the remote backend:
+   terraform init
+   Terraform may ask to migrate local state to the remote backend. Confirm if prompted.
+
+Notes:
+- Do NOT commit backend.tf with real bucket names.
+- Consider a KMS CMK for encryption (we can add this next).
+- Create an IAM role for CI with s3/dynamodb permissions for state usage (policy example available).
+```
