@@ -1,0 +1,65 @@
+name: Copilot Agent Workflow
+
+on:
+  issues:
+    types: [opened, labeled]
+  issue_comment:
+    types: [created]
+  workflow_dispatch:
+
+jobs:
+  copilot-assist:
+    name: Copilot Agent Assistant
+    runs-on: ubuntu-latest
+    if: github.actor == 'github-actions[bot]' || github.event_name == 'workflow_dispatch'
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Copilot Agent Analysis
+        run: |
+          echo "🤖 Copilot Agent activated"
+          echo "📋 Analyzing issue for task breakdown"
+          echo "✅ Ready to assist with business development tasks"
+          
+      - name: Task identification
+        run: |
+          echo "Identifying tasks from issue context"
+          echo "Creating action items for development workflow"
+          
+  auto-label:
+    name: Auto Label Issues
+    runs-on: ubuntu-latest
+    if: github.event_name == 'issues'
+    
+    steps:
+      - name: Label business development issues
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const labels = [];
+            
+            if (issue.title.toLowerCase().includes('business') || 
+                issue.body.toLowerCase().includes('business development')) {
+              labels.push('business-development');
+            }
+            
+            if (issue.title.toLowerCase().includes('marketing')) {
+              labels.push('marketing');
+            }
+            
+            if (issue.title.toLowerCase().includes('copilot') || 
+                issue.body.toLowerCase().includes('copilot')) {
+              labels.push('copilot-agent');
+            }
+            
+            if (labels.length > 0) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                labels: labels
+              });
+            }

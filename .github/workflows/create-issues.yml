@@ -1,0 +1,102 @@
+name: Issue Management
+
+on:
+  workflow_dispatch:
+    inputs:
+      task_type:
+        description: 'Type of task to create issues for'
+        required: true
+        type: choice
+        options:
+          - business-development
+          - marketing
+          - platform-development
+          - all
+
+jobs:
+  create-issues:
+    name: Create Development Issues
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Create Business Development Issues
+        if: inputs.task_type == 'business-development' || inputs.task_type == 'all'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issues = [
+              {
+                title: 'Business Strategy Development',
+                body: '## Business Development Task\n\n### Objective\nDevelop comprehensive business strategy for Economic Storm Platform\n\n### Tasks\n- [ ] Market analysis\n- [ ] Competitive research\n- [ ] Business model development\n- [ ] Revenue strategy\n\n### Copilot Agent Support\nCopilot can assist with research and analysis tasks.',
+                labels: ['business-development', 'copilot-agent']
+              },
+              {
+                title: 'Partnership Development',
+                body: '## Partnership Strategy\n\n### Objective\nIdentify and establish strategic partnerships\n\n### Tasks\n- [ ] Identify potential partners\n- [ ] Create partnership proposals\n- [ ] Develop collaboration framework\n\n### Copilot Agent Support\nCopilot can help draft partnership proposals.',
+                labels: ['business-development', 'copilot-agent']
+              }
+            ];
+            
+            for (const issue of issues) {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: issue.title,
+                body: issue.body,
+                labels: issue.labels
+              });
+            }
+            
+      - name: Create Marketing Issues
+        if: inputs.task_type == 'marketing' || inputs.task_type == 'all'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issues = [
+              {
+                title: 'Marketing Campaign Strategy',
+                body: '## Marketing Development\n\n### Objective\nDevelop marketing strategy for platform launch\n\n### Tasks\n- [ ] Brand identity development\n- [ ] Content strategy\n- [ ] Digital marketing plan\n- [ ] Social media strategy\n\n### Copilot Agent Support\nCopilot can assist with content creation.',
+                labels: ['marketing', 'copilot-agent']
+              }
+            ];
+            
+            for (const issue of issues) {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: issue.title,
+                body: issue.body,
+                labels: issue.labels
+              });
+            }
+            
+      - name: Create Platform Development Issues
+        if: inputs.task_type == 'platform-development' || inputs.task_type == 'all'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issues = [
+              {
+                title: 'Platform Architecture Design',
+                body: '## Platform Development\n\n### Objective\nDesign and implement platform architecture\n\n### Tasks\n- [ ] Database design (All-in-One bank)\n- [ ] API architecture\n- [ ] Security implementation\n- [ ] Scalability planning\n\n### Copilot Agent Support\nCopilot can help with code generation and documentation.',
+                labels: ['platform-development', 'copilot-agent']
+              },
+              {
+                title: 'Data Bank Implementation',
+                body: '## Data Bank Development\n\n### Objective\nImplement comprehensive data bank system\n\n### Tasks\n- [ ] Schema design\n- [ ] Data integration\n- [ ] Analytics setup\n- [ ] Reporting system\n\n### Copilot Agent Support\nCopilot can assist with database queries and optimization.',
+                labels: ['platform-development', 'database', 'copilot-agent']
+              }
+            ];
+            
+            for (const issue of issues) {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: issue.title,
+                body: issue.body,
+                labels: issue.labels
+              });
+            }

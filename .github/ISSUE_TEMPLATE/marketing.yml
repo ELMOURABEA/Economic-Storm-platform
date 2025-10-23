@@ -1,0 +1,67 @@
+name: Marketing Task
+description: Create a marketing task for the Economic Storm Platform
+title: "[MARKETING] "
+labels: ["marketing", "copilot-agent"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Marketing Task
+        Use this template to create marketing tasks for the Economic Storm Platform.
+        
+  - type: dropdown
+    id: category
+    attributes:
+      label: Marketing Category
+      description: What type of marketing task is this?
+      options:
+        - Content Creation
+        - Social Media
+        - Campaign Strategy
+        - Brand Development
+        - Market Research
+        - Analytics
+    validations:
+      required: true
+      
+  - type: input
+    id: objective
+    attributes:
+      label: Marketing Objective
+      description: What is the goal of this marketing task?
+      placeholder: e.g., Increase brand awareness in financial sector
+    validations:
+      required: true
+      
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Detailed description of the marketing task
+    validations:
+      required: true
+      
+  - type: textarea
+    id: tasks
+    attributes:
+      label: Task Breakdown
+      description: List specific tasks to complete
+      placeholder: |
+        - [ ] Task 1
+        - [ ] Task 2
+        - [ ] Task 3
+    validations:
+      required: true
+      
+  - type: textarea
+    id: target-audience
+    attributes:
+      label: Target Audience
+      description: Who is the target audience for this marketing effort?
+      
+  - type: textarea
+    id: copilot-support
+    attributes:
+      label: Copilot Agent Support
+      description: How can Copilot Agent assist with this marketing task?
+      placeholder: e.g., Content generation, research, analytics, etc.

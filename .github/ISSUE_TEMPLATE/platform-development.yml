@@ -1,0 +1,75 @@
+name: Platform Development Task
+description: Create a development task for the Economic Storm Platform
+title: "[DEV] "
+labels: ["platform-development", "copilot-agent"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Platform Development Task
+        Use this template to create platform development tasks for the Economic Storm project.
+        
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      description: Which component does this task relate to?
+      options:
+        - Database / Data Bank
+        - API / Backend
+        - Frontend / UI
+        - Infrastructure
+        - Documentation
+        - Testing
+    validations:
+      required: true
+      
+  - type: input
+    id: feature
+    attributes:
+      label: Feature/Enhancement
+      description: What feature or enhancement are you working on?
+      placeholder: e.g., Implement user authentication system
+    validations:
+      required: true
+      
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Detailed description of the development task
+      placeholder: Provide technical details and requirements
+    validations:
+      required: true
+      
+  - type: textarea
+    id: tasks
+    attributes:
+      label: Implementation Tasks
+      description: Break down the implementation steps
+      placeholder: |
+        - [ ] Task 1
+        - [ ] Task 2
+        - [ ] Task 3
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: Task priority level
+      options:
+        - Critical
+        - High
+        - Medium
+        - Low
+    validations:
+      required: true
+      
+  - type: textarea
+    id: copilot-support
+    attributes:
+      label: Copilot Agent Assistance
+      description: How can Copilot Agent help with this task?
+      placeholder: e.g., Code generation, documentation, testing, etc.

@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: GitHub Copilot Documentation
+    url: https://docs.github.com/en/copilot
+    about: Learn more about GitHub Copilot and how it can assist your development
+  - name: Economic Storm Platform Discussions
+    url: https://github.com/ELMOURABEA/Economic-Storm-platform/discussions
+    about: Ask questions and discuss ideas with the community
