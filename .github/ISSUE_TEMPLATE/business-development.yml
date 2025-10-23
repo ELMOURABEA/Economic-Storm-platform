@@ -1,0 +1,56 @@
+name: Business Development Task
+description: Create a business development task for the Economic Storm Platform
+title: "[BUSINESS] "
+labels: ["business-development", "copilot-agent"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Business Development Task
+        Use this template to create business development tasks that Copilot Agent can help with.
+        
+  - type: input
+    id: objective
+    attributes:
+      label: Objective
+      description: What is the main goal of this business development task?
+      placeholder: e.g., Develop partnership strategy with financial institutions
+    validations:
+      required: true
+      
+  - type: textarea
+    id: tasks
+    attributes:
+      label: Task Breakdown
+      description: List the specific tasks required to complete this objective
+      placeholder: |
+        - [ ] Task 1
+        - [ ] Task 2
+        - [ ] Task 3
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: What is the priority of this task?
+      options:
+        - High
+        - Medium
+        - Low
+    validations:
+      required: true
+      
+  - type: textarea
+    id: copilot-support
+    attributes:
+      label: Copilot Agent Support Needed
+      description: What assistance do you need from Copilot Agent?
+      placeholder: e.g., Research, document drafting, data analysis, etc.
+      
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Any additional information that would be helpful
