@@ -4,13 +4,13 @@
     {
       "Effect": "Allow",
       "Principal": {
-        "Federated": "arn:aws:iam::YOUR_ACCOUNT_ID:oidc-provider/token.actions.githubusercontent.com"
+        "Federated": "arn:aws:iam:: ELMOURABEA:oidc-provider/token.actions.githubusercontent.com"
       },
       "Action": "sts:AssumeRoleWithWebIdentity",
       "Condition": {
         "StringEquals": {
           "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
-          "token.actions.githubusercontent.com:sub": "repo:ELMOURABEA/YOUR_REPO_NAME:ref:refs/heads/main"
+          "token.actions.githubusercontent.com:sub": "repo:ELMOURABEA/ECONOMICSTORMPLATFORM:ref:refs/heads/main"
         }
       }
     }
