@@ -7,11 +7,17 @@ on:
     types: [created]
   workflow_dispatch:
 
+permissions:
+  contents: read
+  issues: write
+
 jobs:
   copilot-assist:
     name: Copilot Agent Assistant
     runs-on: ubuntu-latest
     if: github.actor == 'github-actions[bot]' || github.event_name == 'workflow_dispatch'
+    permissions:
+      contents: read
     
     steps:
       - name: Checkout repository
@@ -32,6 +38,9 @@ jobs:
     name: Auto Label Issues
     runs-on: ubuntu-latest
     if: github.event_name == 'issues'
+    permissions:
+      issues: write
+      contents: read
     
     steps:
       - name: Label business development issues

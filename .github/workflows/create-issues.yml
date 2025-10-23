@@ -13,10 +13,17 @@ on:
           - platform-development
           - all
 
+permissions:
+  contents: read
+  issues: write
+
 jobs:
   create-issues:
     name: Create Development Issues
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
     
     steps:
       - name: Checkout repository
