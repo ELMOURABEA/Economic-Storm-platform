@@ -4,7 +4,7 @@
 
 The **Economic Storm Platform** is a comprehensive enterprise solution designed for:
 - 💼 **Economic Projects**: Project management and tracking
-- 📊 **Marketing**: Campaign management and analytics  
+- 📊 **Marketing**: Campaign management and analytics
 - 🤝 **Business Development**: Strategic partnerships and growth
 - 🗄️ **Data Bank**: All-in-One database system for enterprise data
 
@@ -139,9 +139,9 @@ When implementing the platform, consider:
 - **Next.js**: React with SSR, built-in routing
 
 ### Database (All-in-One Data Bank)
-- **PostgreSQL**: Robust, advanced features, complex queries
-- **MongoDB**: Flexible schema, rapid development
-- **MySQL**: Widely used, good performance
+- **PostgreSQL** (v14+): Robust, advanced features, excellent for complex queries and ACID compliance
+- **MongoDB** (v6+): Flexible schema, rapid development, ideal for document-based data
+- **MySQL** (v8+): Widely used, good performance, strong community support
 
 ## Working with Copilot
 
@@ -250,4 +250,13 @@ Once the tech stack is chosen, this section will include:
 
 ---
 
-**Remember**: The Economic Storm Platform is designed to be AI-friendly. Use clear documentation, structured issues, and incremental development to maximize Copilot's effectiveness in assisting with development! 🚀
+**Remember**: The Economic Storm Platform is designed to be AI-friendly. To maximize Copilot's effectiveness:
+- Write clear, descriptive issue titles and descriptions
+- Break down large tasks into smaller, focused issues
+- Use the provided issue templates consistently
+- Keep pull requests small and focused on a single concern
+- Document decisions and rationale in comments
+- Maintain up-to-date README and documentation files
+- Use conventional commit messages (e.g., "feat:", "fix:", "docs:")
+
+Following these practices helps Copilot understand context and provide better assistance! 🚀
