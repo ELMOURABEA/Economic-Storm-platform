@@ -25,9 +25,9 @@ function App() {
           </div>
         </header>
 
-        {/* Top Advertisement Space */}
+        {/* Top Advertisement Space - Banner Ad (eco-Storm) */}
         <div className="ad-container top-ad">
-          <GoogleAd slot="1234567890" format="horizontal" />
+          <GoogleAd slot="1979671399" format="horizontal" />
         </div>
 
         <main className="main-content">
@@ -40,9 +40,9 @@ function App() {
           </Routes>
         </main>
 
-        {/* Bottom Advertisement Space */}
+        {/* Bottom Advertisement Space - Implant Advertising (alshameel) */}
         <div className="ad-container bottom-ad">
-          <GoogleAd slot="0987654321" format="horizontal" />
+          <GoogleAd slot="9387388128" format="horizontal" />
         </div>
 
         <footer className="App-footer">

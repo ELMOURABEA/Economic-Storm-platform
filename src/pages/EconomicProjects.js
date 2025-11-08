@@ -31,9 +31,9 @@ const EconomicProjects = () => {
           </div>
         </div>
 
-        {/* Mid-page Ad */}
+        {/* Mid-page Ad - For Developer */}
         <div className="content-ad">
-          <GoogleAd slot="3333333333" format="horizontal" />
+          <GoogleAd slot="9934183032" format="horizontal" />
         </div>
 
         <div className="content-section">

@@ -31,9 +31,9 @@ const DataBank = () => {
           </div>
         </div>
 
-        {/* Ad Space */}
+        {/* Ad Space - Implant (reuse) */}
         <div className="content-ad">
-          <GoogleAd slot="6666666666" format="horizontal" />
+          <GoogleAd slot="9387388128" format="horizontal" />
         </div>
 
         <div className="content-section">

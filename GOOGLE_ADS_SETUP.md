@@ -86,6 +86,41 @@ For each ad placement, create an ad unit:
 
 ### Step 4: Configure Application
 
+#### Pre-configured Ad Unit IDs
+
+The Economic Storm Platform has been configured with the following AdMob/AdSense IDs:
+
+**App ID (eco-Storm)**:
+```
+ca-app-pub-8167320193401713~7894343051
+```
+
+**Ad Unit IDs by Purpose**:
+
+1. **Banner Ad (eco-Storm)**
+   - App ID: `ca-app-pub-8167320193401713~7894343051`
+   - Ad Unit: `ca-app-pub-8167320193401713/1979671399`
+
+2. **Implant Advertising (alshameel)**
+   - App ID: `ca-app-pub-8167320193401713~7894343051`
+   - Ad Unit: `ca-app-pub-8167320193401713/9387388128`
+
+3. **Customer Ads**
+   - App ID: `ca-app-pub-8167320193401713~7894343051`
+   - Ad Unit: `ca-app-pub-8167320193401713/3803888958`
+
+4. **For Ad**
+   - App ID: `ca-app-pub-8167320193401713~7894343051`
+   - Ad Unit: `ca-app-pub-8167320193401713/4790216305`
+
+5. **For Developer**
+   - App ID: `ca-app-pub-8167320193401713~7894343051`
+   - Ad Unit: `ca-app-pub-8167320193401713/9934183032`
+
+6. **Partner**
+   - App ID: `ca-app-pub-8167320193401713~7894343051`
+   - Ad Unit: `ca-app-pub-8167320193401713/5228651260`
+
 #### Option A: Update Environment File
 
 1. Create `.env` file in project root:
@@ -93,18 +128,20 @@ For each ad placement, create an ad unit:
    cp .env.example .env
    ```
 
-2. Edit `.env` file:
+2. Edit `.env` file with the actual Economic Storm Platform IDs:
    ```env
-   # Replace with your actual values
-   REACT_APP_GOOGLE_ADS_CLIENT_ID=ca-pub-1234567890123456
-   REACT_APP_AD_SLOT_TOP=1234567890
-   REACT_APP_AD_SLOT_BOTTOM=0987654321
-   REACT_APP_AD_SLOT_SIDEBAR=1111111111
-   REACT_APP_AD_SLOT_CONTENT_1=2222222222
-   REACT_APP_AD_SLOT_CONTENT_2=3333333333
-   REACT_APP_AD_SLOT_CONTENT_3=4444444444
-   REACT_APP_AD_SLOT_CONTENT_4=5555555555
-   REACT_APP_AD_SLOT_CONTENT_5=6666666666
+   # Economic Storm Platform - Google Ads Configuration
+   REACT_APP_GOOGLE_ADS_CLIENT_ID=ca-app-pub-8167320193401713
+   
+   # Ad Slot IDs for different purposes
+   REACT_APP_AD_SLOT_TOP=1979671399
+   REACT_APP_AD_SLOT_BOTTOM=9387388128
+   REACT_APP_AD_SLOT_SIDEBAR=3803888958
+   REACT_APP_AD_SLOT_CONTENT_1=4790216305
+   REACT_APP_AD_SLOT_CONTENT_2=9934183032
+   REACT_APP_AD_SLOT_CONTENT_3=5228651260
+   REACT_APP_AD_SLOT_CONTENT_4=1979671399
+   REACT_APP_AD_SLOT_CONTENT_5=9387388128
    ```
 
 #### Option B: Update Code Directly
@@ -114,8 +151,8 @@ For each ad placement, create an ad unit:
    <!-- Replace this line -->
    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX"
    
-   <!-- With your actual Publisher ID -->
-   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1234567890123456"
+   <!-- With Economic Storm Platform Publisher ID -->
+   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-app-pub-8167320193401713"
    ```
 
 2. Edit `src/components/GoogleAd.js`:
@@ -123,17 +160,17 @@ For each ad placement, create an ad unit:
    // Replace this line
    data-ad-client="ca-pub-XXXXXXXXXX"
    
-   // With your actual Publisher ID
-   data-ad-client="ca-pub-1234567890123456"
+   // With Economic Storm Platform Publisher ID
+   data-ad-client="ca-app-pub-8167320193401713"
    ```
 
 3. Update ad slots in each page:
-   - `src/App.js`: Update top and bottom ad slots
-   - `src/pages/Home.js`: Update sidebar and content ad slots
-   - `src/pages/EconomicProjects.js`: Update content ad slot
-   - `src/pages/Marketing.js`: Update content ad slot
-   - `src/pages/BusinessDevelopment.js`: Update content ad slot
-   - `src/pages/DataBank.js`: Update content ad slot
+   - `src/App.js`: Update top (1979671399) and bottom (9387388128) ad slots
+   - `src/pages/Home.js`: Update sidebar (3803888958) and content ad slots
+   - `src/pages/EconomicProjects.js`: Update content ad slot (4790216305)
+   - `src/pages/Marketing.js`: Update content ad slot (9934183032)
+   - `src/pages/BusinessDevelopment.js`: Update content ad slot (5228651260)
+   - `src/pages/DataBank.js`: Update content ad slot (1979671399)
 
 ### Step 5: Verify Integration
 
@@ -298,6 +335,151 @@ data-full-width-responsive="true"
 - Ensure fast page load times
 - Don't place ads above the fold on mobile
 - Test on actual mobile devices
+
+## 📱 Android/Mobile App Configuration
+
+### Gradle Configuration for Android
+
+If you're building a mobile app version of Economic Storm Platform, add the following to your Android project:
+
+#### settings.gradle
+
+```gradle
+pluginManagement {
+  repositories {
+    google()
+    mavenCentral()
+    gradlePluginPortal()
+  }
+}
+
+dependencyResolutionManagement {
+  repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+  repositories {
+    google()
+    mavenCentral()
+  }
+}
+
+rootProject.name = "ECO-STORM"
+include ':app'
+```
+
+#### build.gradle (app level)
+
+```gradle
+dependencies {
+  // Google Mobile Ads SDK
+  implementation("com.google.android.gms:play-services-ads:24.7.0")
+}
+```
+
+#### AndroidManifest.xml
+
+Add your AdMob App ID to the manifest:
+
+```xml
+<manifest>
+    <application>
+        <!-- AdMob App ID -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-8167320193401713~7894343051"/>
+    </application>
+</manifest>
+```
+
+### Mobile Ad Integration
+
+For mobile apps, use the following ad unit IDs based on the ad type:
+
+- **Banner Ads**: `ca-app-pub-8167320193401713/1979671399`
+- **Interstitial Ads**: `ca-app-pub-8167320193401713/9387388128`
+- **Rewarded Ads**: `ca-app-pub-8167320193401713/3803888958`
+- **Native Ads**: `ca-app-pub-8167320193401713/4790216305`
+
+## 🛡️ Content Moderation with Google GenAI
+
+### AI-Powered Content Moderation
+
+Economic Storm Platform includes AI-powered content moderation using Google's GenAI to ensure safe and appropriate content for ads display.
+
+#### Setup Content Moderation
+
+Install required dependencies:
+
+```bash
+pip install google-generativeai pydantic
+```
+
+#### Implementation
+
+```python
+from google import genai
+from pydantic import BaseModel, Field
+from typing import Union, Literal
+
+class SpamDetails(BaseModel):
+    """Details for content classified as spam."""
+    reason: str = Field(description="The reason why the content is considered spam.")
+    spam_type: Literal["phishing", "scam", "unsolicited promotion", "other"] = Field(
+        description="The type of spam."
+    )
+
+class NotSpamDetails(BaseModel):
+    """Details for content classified as not spam."""
+    summary: str = Field(description="A brief summary of the content.")
+    is_safe: bool = Field(description="Whether the content is safe for all audiences.")
+
+class ModerationResult(BaseModel):
+    """The result of content moderation."""
+    decision: Union[SpamDetails, NotSpamDetails]
+
+# Initialize the GenAI client
+client = genai.Client()
+
+# Example moderation request
+prompt = """
+Please moderate the following content and provide a decision.
+Content: 'Congratulations! You've won a free cruise to the Bahamas. Click here to claim your prize: www.definitely-not-a-scam.com'
+"""
+
+response = client.models.generate_content(
+    model="gemini-2.5-flash",
+    contents=prompt,
+    config={
+        "response_mime_type": "application/json",
+        "response_json_schema": ModerationResult.model_json_schema(),
+    },
+)
+
+# Parse the moderation result
+result = ModerationResult.model_validate_json(response.text)
+print(result)
+```
+
+#### Use Cases for Content Moderation
+
+1. **User-Generated Content**: Moderate comments, reviews, and posts before displaying ads
+2. **Spam Detection**: Identify and filter spam content automatically
+3. **Safe Ad Environment**: Ensure content meets Google AdSense policies
+4. **Brand Safety**: Protect your brand reputation by filtering inappropriate content
+
+#### Integration with Ad Display
+
+Only show ads on pages that pass content moderation:
+
+```python
+# Check content before loading ads
+moderation_result = moderate_content(page_content)
+
+if isinstance(moderation_result.decision, NotSpamDetails) and moderation_result.decision.is_safe:
+    # Content is safe - load ads
+    enable_ads = True
+else:
+    # Content flagged - skip ads
+    enable_ads = False
+```
 
 ## 🔐 Privacy & GDPR Compliance
 

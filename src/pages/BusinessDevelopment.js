@@ -31,9 +31,9 @@ const BusinessDevelopment = () => {
           </div>
         </div>
 
-        {/* Ad Space */}
+        {/* Ad Space - Banner (reuse) */}
         <div className="content-ad">
-          <GoogleAd slot="5555555555" format="horizontal" />
+          <GoogleAd slot="1979671399" format="horizontal" />
         </div>
 
         <div className="content-section">

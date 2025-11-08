@@ -39,9 +39,9 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Sidebar Ad Space */}
+        {/* Sidebar Ad Space - Customer Ads */}
         <div className="sidebar-ad">
-          <GoogleAd slot="1111111111" format="rectangle" />
+          <GoogleAd slot="3803888958" format="rectangle" />
         </div>
 
         <div className="info-section">
@@ -62,9 +62,9 @@ const Home = () => {
           <button className="cta-button">Get Started Today</button>
         </div>
 
-        {/* In-content Ad Space */}
+        {/* In-content Ad Space - For Ad */}
         <div className="content-ad">
-          <GoogleAd slot="2222222222" format="horizontal" />
+          <GoogleAd slot="4790216305" format="horizontal" />
         </div>
       </div>
     </div>

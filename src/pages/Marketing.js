@@ -31,9 +31,9 @@ const Marketing = () => {
           </div>
         </div>
 
-        {/* Ad Space */}
+        {/* Ad Space - Partner */}
         <div className="content-ad">
-          <GoogleAd slot="4444444444" format="horizontal" />
+          <GoogleAd slot="5228651260" format="horizontal" />
         </div>
 
         <div className="content-section">
