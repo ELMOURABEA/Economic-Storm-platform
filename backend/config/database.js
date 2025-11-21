@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const config = {
   server: process.env.DB_SERVER || 'localhost',
-  port: parseInt(process.env.DB_PORT) || 1433,
+  port: parseInt(process.env.DB_PORT, 10) || 1433,
   database: process.env.DB_DATABASE || 'EconomicStorm',
   user: process.env.DB_USER || 'sa',
   password: process.env.DB_PASSWORD,

@@ -129,6 +129,15 @@ exports.analyzeProject = async (req, res) => {
 
     const analysis = await analyzeBusinessData(project, 'economic');
     
+    if (!analysis.success) {
+      return res.status(503).json({
+        success: false,
+        error: 'AI analysis service unavailable',
+        details: analysis.error,
+        project: project
+      });
+    }
+    
     res.json({
       success: true,
       project: project,

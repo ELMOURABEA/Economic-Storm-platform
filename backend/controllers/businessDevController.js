@@ -129,6 +129,15 @@ exports.analyzeOpportunity = async (req, res) => {
 
     const analysis = await analyzeBusinessData(opportunity, 'development');
     
+    if (!analysis.success) {
+      return res.status(503).json({
+        success: false,
+        error: 'AI analysis service unavailable',
+        details: analysis.error,
+        opportunity: opportunity
+      });
+    }
+    
     res.json({
       success: true,
       opportunity: opportunity,

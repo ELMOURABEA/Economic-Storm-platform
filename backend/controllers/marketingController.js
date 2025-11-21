@@ -129,6 +129,15 @@ exports.analyzeCampaign = async (req, res) => {
 
     const analysis = await analyzeBusinessData(campaign, 'marketing');
     
+    if (!analysis.success) {
+      return res.status(503).json({
+        success: false,
+        error: 'AI analysis service unavailable',
+        details: analysis.error,
+        campaign: campaign
+      });
+    }
+    
     res.json({
       success: true,
       campaign: campaign,

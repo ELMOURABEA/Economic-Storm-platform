@@ -2,12 +2,14 @@ version: '3.8'
 
 services:
   # SQL Server Database
+  # IMPORTANT: For production, use Docker secrets or environment variables
+  # to manage the SA_PASSWORD instead of hardcoding it here
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: economic-storm-sqlserver
     environment:
       - ACCEPT_EULA=Y
-      - SA_PASSWORD=EconomicStorm2024!
+      - SA_PASSWORD=${DB_PASSWORD:-EconomicStorm2024!}
       - MSSQL_PID=Express
     ports:
       - "1433:1433"
@@ -38,10 +40,11 @@ services:
       - DB_PORT=1433
       - DB_DATABASE=EconomicStorm
       - DB_USER=sa
-      - DB_PASSWORD=EconomicStorm2024!
+      - DB_PASSWORD=${DB_PASSWORD:-EconomicStorm2024!}
       - DB_ENCRYPT=true
       - DB_TRUST_SERVER_CERTIFICATE=true
-      - CORS_ORIGIN=http://localhost:3000
+      - CORS_ORIGIN=${CORS_ORIGIN:-http://localhost:3000}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
     depends_on:
       sqlserver:
         condition: service_healthy
