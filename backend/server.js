@@ -57,6 +57,8 @@ app.get('/api', (req, res) => {
 // API Routes
 const apiVersion = process.env.API_VERSION || 'v1';
 app.use(`/api/${apiVersion}/projects`, require('./routes/projects'));
+app.use(`/api/${apiVersion}/marketing`, require('./routes/marketing'));
+app.use(`/api/${apiVersion}/business`, require('./routes/business'));
 app.use(`/api/${apiVersion}/ai`, require('./routes/ai'));
 
 // Error handling middleware

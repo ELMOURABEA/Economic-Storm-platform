@@ -63,30 +63,56 @@ See [COPILOT_GUIDE.md](COPILOT_GUIDE.md) for detailed instructions.
 ### Prerequisites
 
 - **For Users**: Docker and Docker Compose
-- **For Developers**: Node.js 18+, npm
-- GitHub account with Copilot access (for development)
-- Google Ads account (for monetization)
+- **For Developers**: Node.js 18+, npm, SQL Server
+- Google Gemini API key (get from https://makersuite.google.com/app/apikey)
+- Google Ads account (for monetization - optional)
 
-### Quick Start - Deploy the Application
+### Quick Start - Full Stack Deployment
 
 ```bash
 # Clone the repository
 git clone https://github.com/ELMOURABEA/Economic-Storm-platform.git
 cd Economic-Storm-platform
 
-# Configure Google Ads (optional)
+# Configure Backend (Required)
+cp backend/.env.example backend/.env
+# Edit backend/.env with your settings:
+#   - GEMINI_API_KEY (required for AI features)
+#   - DB_PASSWORD (strong password for SQL Server)
+#   - CORS_ORIGIN (your frontend URL)
+
+# Configure Frontend (Optional)
 cp .env.example .env
 # Edit .env with your Google Ads credentials
 
-# Option 1: Deploy with Docker (Recommended)
+# Deploy Full Stack with Docker (Recommended)
 docker-compose up -d
 
-# Option 2: Run locally
+# Wait for services to start (60 seconds)
+# Initialize database (first time only)
+docker exec economic-storm-backend node scripts/init-database.js
+
+# Access the application
+# Frontend: http://localhost:3000
+# Backend API: http://localhost:5000
+# SQL Server: localhost:1433
+```
+
+### Quick Start - Development
+
+```bash
+# Frontend
 npm install
 npm start
 
-# Access the application
-# Open http://localhost:3000 in your browser
+# Backend (new terminal)
+cd backend
+npm install
+npm run dev
+
+# Access
+# Frontend: http://localhost:3000
+# Backend API: http://localhost:5000/api/v1
 ```
 
 ### For Development
@@ -141,11 +167,71 @@ npm test
 - Pre-configured task templates
 - Comprehensive task breakdown
 
+## 🤖 AI-Powered Features
+
+### Gemini AI Integration
+
+The platform integrates Google's Gemini 1.5 Flash for intelligent business operations:
+
+**AI Capabilities:**
+- 📊 **Business Data Analysis** - Analyze projects, campaigns, and opportunities
+- 💡 **Smart Insights** - Generate actionable business recommendations  
+- 💬 **Conversational AI** - Interactive chat for business strategy
+- 📝 **Content Generation** - Create reports, proposals, and marketing copy
+- 🎯 **Predictive Analytics** - Forecast trends and performance
+
+**API Endpoints:**
+```bash
+POST /api/v1/ai/generate      # Generate AI content
+POST /api/v1/ai/chat          # Chat with AI assistant
+POST /api/v1/ai/analyze       # Analyze business data
+GET  /api/v1/ai/insights      # Get business insights
+POST /api/v1/ai/report        # Generate reports
+```
+
+See [GEMINI_AI_SETUP.md](GEMINI_AI_SETUP.md) for complete integration guide.
+
+## 🗄️ Database & API
+
+### SQL Server Database
+
+Complete enterprise database with 6 core tables:
+
+**Database Features:**
+- Projects tracking and management
+- Marketing campaign analytics
+- Business development pipeline
+- Flexible data bank storage
+- AI-generated insights storage
+- Performance analytics
+
+**API Endpoints:**
+```bash
+# Projects
+GET/POST/PUT/DELETE /api/v1/projects
+POST /api/v1/projects/:id/analyze    # AI analysis
+
+# Marketing
+GET/POST/PUT/DELETE /api/v1/marketing
+GET /api/v1/marketing/metrics
+POST /api/v1/marketing/:id/analyze   # AI analysis
+
+# Business Development
+GET/POST/PUT/DELETE /api/v1/business
+GET /api/v1/business/pipeline
+POST /api/v1/business/:id/analyze    # AI analysis
+```
+
+See [SQLSERVER_SETUP.md](SQLSERVER_SETUP.md) for database configuration.
+
 ## 📚 Documentation
 
-### User Documentation
-- [Deployment Guide](DEPLOYMENT.md) - Complete deployment instructions for all platforms
-- [Google Ads Setup](GOOGLE_ADS_SETUP.md) - Configure advertising and monetization
+### Setup Guides
+- [SQL Server Setup](SQLSERVER_SETUP.md) - Complete database configuration ✨ NEW
+- [Gemini AI Setup](GEMINI_AI_SETUP.md) - AI integration guide ✨ NEW  
+- [Market Deployment](MARKET_DEPLOYMENT_GUIDE.md) - Production deployment & publishing ✨ NEW
+- [Deployment Guide](DEPLOYMENT.md) - Multi-cloud deployment instructions
+- [Google Ads Setup](GOOGLE_ADS_SETUP.md) - Advertising and monetization
 
 ### Developer Documentation
 - [Copilot Collaboration Guide](COPILOT_GUIDE.md) - How to work with Copilot Agent
@@ -157,17 +243,31 @@ npm test
 
 ### Current Implementation
 - **Frontend**: React 18 with React Router
+- **Backend**: Node.js with Express.js
+- **Database**: Microsoft SQL Server 2022
+- **AI Integration**: Google Gemini 1.5 Flash
 - **UI/UX**: Modern gradient design, responsive layout
 - **Deployment**: Docker, Docker Compose, Nginx
 - **Monetization**: Google Ads integration
 - **CI/CD**: GitHub Actions
 - **Cloud-Ready**: AWS, GCP, Azure, Heroku compatible
 
-### Future Components
-- Backend API (Node.js/Python)
-- Database System (PostgreSQL/MongoDB)
-- Authentication & Authorization
-- Advanced Analytics
+### Key Features
+- ✅ RESTful API with full CRUD operations
+- ✅ SQL Server database with 6 core tables
+- ✅ AI-powered business insights with Gemini
+- ✅ Real-time data analysis and reporting
+- ✅ Automated content generation
+- ✅ Multi-service Docker orchestration
+- ✅ Production-ready security features
+
+### Database Schema
+- **Projects** - Economic project management
+- **MarketingCampaigns** - Campaign tracking and analytics
+- **BusinessDevelopment** - BD pipeline and opportunities
+- **DataBank** - Flexible data storage system
+- **AIInsights** - AI-generated business insights
+- **Analytics** - Performance metrics and KPIs
 
 ## 🤝 Contributing
 
@@ -190,20 +290,23 @@ We welcome contributions! Here's how:
 
 ## 📈 Project Status
 
-### Current Phase: Production Ready ✅
+### Current Phase: Production Ready with Full Stack ✅
 - [x] Repository setup
 - [x] GitHub Actions workflows
 - [x] Issue templates
 - [x] Copilot Agent integration
-- [x] Documentation
+- [x] Comprehensive Documentation
 - [x] Web Application (React)
+- [x] Backend API (Node.js/Express) ✨ NEW
+- [x] SQL Server Database Integration ✨ NEW
+- [x] Google Gemini AI Integration ✨ NEW
 - [x] Deployment Configuration (Docker, Docker Compose)
 - [x] Google Ads Integration
 - [x] Production-ready packaging
 - [x] Multi-cloud deployment support
-- [ ] Backend API implementation
-- [ ] Database integration
-- [ ] Advanced features
+- [ ] Authentication & Authorization
+- [ ] Advanced Analytics Dashboard
+- [ ] Mobile App
 
 ### Next Steps
 - Define technical architecture
