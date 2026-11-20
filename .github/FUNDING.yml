@@ -1,0 +1,12 @@
+github: ELMOURABEA
+open_collective: economic-storm
+paypal: https://paypal.me/ELMOURABEA
+buy_me_a_coffee: ELMOURABEA
+
+custom:
+  - name: "Bank Transfer"
+    url: "https://example.com/payments/bank-instructions"
+    description: "Bank transfer instructions and reference."
+  - name: "Crypto"
+    url: "https://example.com/payments/crypto"
+    description: "BTC / ETH / USDT payment options and addresses."

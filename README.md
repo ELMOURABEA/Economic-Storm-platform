@@ -1,9 +1,8 @@
-# Economic Storm Platform 🚀
+# Economic Storm Platform
 
-[![CI/CD Pipeline](https://github.com/ELMOURABEA/Economic-Storm-platform/actions/workflows/ci.yml/badge.svg)](https://github.com/ELMOURABEA/Economic-Storm-platform/actions/workflows/ci.yml)
-[![Copilot Agent](https://github.com/ELMOURABEA/Economic-Storm-platform/actions/workflows/copilot-agent.yml/badge.svg)](https://github.com/ELMOURABEA/Economic-Storm-platform/actions/workflows/copilot-agent.yml)
+[![Sponsor](https://img.shields.io/static/v1?label=Sponsor&message=Support+ECO+Business&color=ff69b4&logo=github)](https://github.com/sponsors/ELMOURABEA)
 
-**A fully integrated Enterprise platform for Economic projects, Marketing, and Business Development with an All-in-One Data Bank**
+Support the project — your sponsorship helps maintain infrastructure, provide free credits for new users, and develop new bots.
 
 ## 🎯 Overview
 
@@ -409,3 +408,5 @@ This creates a complete distribution package including:
 **Built with ❤️ and powered by GitHub Copilot Agent** 🤖
 
 *"Copilot Agent - Your right hand for business development!"*
+## Quick links
+- Sponsor: https://github.com/sponsors/ELMOURABEA
