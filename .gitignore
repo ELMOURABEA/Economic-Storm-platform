@@ -23,6 +23,7 @@ parts/
 sdist/
 wheels/
 *.egg
+dist-package/
 
 # Environment variables
 .env
@@ -30,6 +31,12 @@ wheels/
 .env.development.local
 .env.test.local
 .env.production.local
+
+# Distribution packages
+*.tar.gz
+*.zip
+economic-storm-platform-v*.tar.gz
+economic-storm-platform-v*.zip
 
 # IDE
 .vscode/

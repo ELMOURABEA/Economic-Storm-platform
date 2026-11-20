@@ -1,0 +1,95 @@
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.App-header {
+  background-color: rgba(0, 0, 0, 0.85);
+  padding: 1rem 0;
+  color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.logo {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem 0;
+}
+
+.ad-container {
+  max-width: 1200px;
+  margin: 1rem auto;
+  padding: 0 2rem;
+}
+
+.top-ad {
+  margin-top: 1rem;
+}
+
+.bottom-ad {
+  margin-bottom: 1rem;
+}
+
+.App-footer {
+  background-color: rgba(0, 0, 0, 0.85);
+  color: white;
+  padding: 2rem 0;
+  text-align: center;
+  margin-top: auto;
+}
+
+.App-footer p {
+  margin: 0.5rem 0;
+}
+
+@media (max-width: 768px) {
+  .logo {
+    font-size: 1.5rem;
+  }
+  
+  .nav {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .nav-link {
+    width: 100%;
+    text-align: center;
+  }
+}
